@@ -1,0 +1,35 @@
+{
+  "name": "daterange",
+  "version": "0.1.0",
+  "description": "daterange is a simple node/browser library to work with date ranges. Compare whether date ranges equal, overlap, or contain each other. Subtract and add date ranges.",
+  "main": "none",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jrit/daterange.js.git"
+  },
+  "keywords": [
+    "daterange.js",
+    "daterange",
+    "date",
+    "range",
+    "browser",
+    "node",
+    "javascript"
+  ],
+  "author": "Jarrett Widman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jrit/daterange.js/issues"
+  },
+  "homepage": "https://github.com/jrit/daterange.js",
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
