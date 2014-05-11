@@ -26,9 +26,9 @@ result.end.getTime() === range2.end.getTime(); //true
 ```javascript
 range = daterange.create(Date, Date);
 ranges = daterage.sum([range,range,...]);
-ranges = daterage.equals(range1, range2);
-ranges = daterage.contains(outer, inner);
-ranges = daterage.overlaps(range1, range2);
+bool = daterage.equals(range1, range2);
+bool = daterage.contains(outer, inner);
+bool = daterage.overlaps(range1, range2);
 ranges = daterage.subtract(range1, diffRange);
 ```
 
