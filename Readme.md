@@ -11,31 +11,34 @@ daterange is simple and fast.
 
 ## Example, add 2 ranges: 
 
-```var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+```javascript
+var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 var range2 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 4) );
 var result = range1.add( range2 );
-> result.start.getTime() === range1.start.getTime()
-> result.end.getTime() === range2.end.getTime()
+    result.start.getTime() === range1.start.getTime();
+    result.end.getTime() === range2.end.getTime();
 ```
 
 
 ## daterange Methods:
 
-```range = daterange.create(Date, Date)
-ranges = daterage.sum([range,range,...])
-ranges = daterage.equals(range1, range2)
-ranges = daterage.contains(outer, inner)
-ranges = daterage.overlaps(range1, range2)
-ranges = daterage.subtract(range1, diffRange)
+```javascript
+range = daterange.create(Date, Date);
+ranges = daterage.sum([range,range,...]);
+ranges = daterage.equals(range1, range2);
+ranges = daterage.contains(outer, inner);
+ranges = daterage.overlaps(range1, range2);
+ranges = daterage.subtract(range1, diffRange);
 ```
 
 ## daterange Instance Methods, from daterange.create:
 
-```bool = range.equals(range)
-bool = range.contains(range)
-bool = range.overlaps(range)
-ranges = range.subtract(range)
-ranges = range.add(range)
+```javascript
+bool = range.equals(range);
+bool = range.contains(range);
+bool = range.overlaps(range);
+ranges = range.subtract(range);
+ranges = range.add(range);
 ```
 
 ## tests
