@@ -1,5 +1,5 @@
 ﻿
-( function ( exports )
+( function ( daterange )
 {
 	/**
 	* @class daterange
@@ -35,7 +35,43 @@
 		return ( null );
 	};
 
-	exports.create = function ( start, end )
+	daterange.equals = function ( range1, range2 )
+	{
+		return ( range1.start.getTime() === range2.start.getTime()
+					&& range1.end.getTime() === range2.end.getTime() );
+	};
+
+	daterange.contains = function ( outer, inner )
+	{
+		return ( !outer.equals( inner ) 
+					&& outer.start.getTime() <= inner.start.getTime() 
+					&& outer.end.getTime() >= inner.end.getTime() );
+	};
+
+	daterange.overlaps = function ( range1, range2 )
+	{
+		return ( range1.equals( range2 )
+					|| range1.contains( range2 )
+					|| range2.contains( range1 )
+					|| range1.start.getTime() < range2.start.getTime() && range1.end.getTime() > range2.start.getTime()
+					|| range2.start.getTime() < range1.start.getTime() && range2.end.getTime() > range1.start.getTime() );
+	};
+
+	daterange.subtract = function ( range1, diffRange )
+	{
+		if ( range1.equals( diffRange ) || diffRange.contains( range1 ) )
+		{
+			return ( [] ); //none
+		}
+
+		var parts = [exports.create( range1.start, diffRange.start ), exports.create( diffRange.end, range1.end )];
+		return ( parts.filter( function ( item )
+		{
+			return ( item.end.getTime() > item.start.getTime() );
+		} ) );
+	};
+
+	daterange.create = function ( start, end )
 	{
 		if ( !start || !end )
 		{
@@ -52,7 +88,7 @@
 			 */
 			equals: function ( range2 )
 			{
-				return ( me.start.getTime() === range2.start.getTime() && me.end.getTime() === range2.end.getTime() );
+				return ( daterange.equals( me, range2 ) );
 			},
 			/**
 			 * @method contains
@@ -61,7 +97,7 @@
 			 */
 			contains: function ( inner )
 			{
-				return ( !me.equals( inner ) && me.start.getTime() <= inner.start.getTime() && me.end.getTime() >= inner.end.getTime() );
+				return ( daterange.contains( me, inner ) );
 			},
 			/**
 			 * @method overlaps
@@ -70,30 +106,16 @@
 			 */
 			overlaps: function ( range2 )
 			{
-				return (
-					me.equals( range2 )
-					|| me.contains( range2 )
-					|| range2.contains( me )
-					|| me.start.getTime() < range2.start.getTime() && me.end.getTime() > range2.start.getTime()
-					|| range2.start.getTime() < me.start.getTime() && range2.end.getTime() > me.start.getTime() );
+				return ( daterange.overlaps( me, range2 ) );
 			},
 			/**
 			 * @method subtract
-			 * @param {daterange} range2
+			 * @param {daterange} diffRange
 			 * @return {Array}
 			 */
-			subtract: function ( range2 )
+			subtract: function ( diffRange )
 			{
-				if ( me.equals( range2 ) || range2.contains( me ) )
-				{
-					return ( [] ); //none
-				}
-				
-				var parts = [exports.create( me.start, range2.start ), exports.create( range2.end, me.end )];
-				return ( parts.filter( function ( item )
-					{
-					return ( item.end.getTime() > item.start.getTime() );
-					} ) );
+				return( daterange.subtract( me, diffRange ) );
 			},
 			/**
 			 * @method subtract
@@ -114,7 +136,7 @@
 	 * @param {Array} ranges
 	 * @return {Array}
 	 */
-	exports.sum = function ( ranges )
+	daterange.sum = function ( ranges )
 	{
 		var ordered = ranges.sort( rangeSortStart );
 		var orderedRemaining = copyArray( ordered );

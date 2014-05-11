@@ -152,7 +152,7 @@ describe( 'daterange', function ()
 	{
 		var ranges = [];
 
-		for ( var i = 1; i < 1000; i++ )
+		for ( var i = 1; i < 2000; i++ )
 		{
 			ranges.push( daterange.create( new Date( 2000, 0, i ), new Date( 2000, 0, i*2 ) ) );
 		}
