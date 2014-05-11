@@ -15,8 +15,9 @@ daterange is simple and fast.
 var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 var range2 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 4) );
 var result = range1.add( range2 );
-    result.start.getTime() === range1.start.getTime();
-    result.end.getTime() === range2.end.getTime();
+
+result.start.getTime() === range1.start.getTime(); //true
+result.end.getTime() === range2.end.getTime(); //true
 ```
 
 
