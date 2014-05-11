@@ -20,4 +20,5 @@
 	} );;
 
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
+	grunt.loadNpmTasks( 'grunt-release' );
 };
