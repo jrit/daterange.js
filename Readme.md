@@ -9,6 +9,14 @@ Subtract and add date ranges.
 daterange is simple and fast.
 
 
+Install via 
+
+- `npm install daterange`
+- `bower install daterange`
+
+The bower install is just the main src file, bower.json and readme
+
+
 ## Example, add 2 ranges: 
 
 ```javascript
