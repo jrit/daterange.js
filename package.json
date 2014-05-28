@@ -1,6 +1,6 @@
 {
   "name": "daterange",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "daterange is a simple node/browser library to work with date ranges. Compare whether date ranges equal, overlap, or contain each other. Subtract and add date ranges.",
   "main": "none",
   "directories": {
