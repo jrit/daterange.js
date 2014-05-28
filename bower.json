@@ -1,6 +1,6 @@
 {
   "name": "daterange.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/jrit/daterange.js",
   "authors": [
     "Jarrett Widman <jarrett@24m2.com>"
@@ -19,6 +19,8 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
+    "Gruntfile.js",
+    "package.json",
     "node_modules",
     "bower_components",
     "test",
