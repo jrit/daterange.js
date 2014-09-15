@@ -1,5 +1,5 @@
 ﻿var assert = require( "assert" );
-var daterange = require( "../src/daterange.js" );
+var daterange = require( "../index.js" );
 
 /**
  * Mocha tests
