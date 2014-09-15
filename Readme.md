@@ -33,11 +33,11 @@ result.end.getTime() === range2.end.getTime(); //true
 
 ```javascript
 range = daterange.create(Date, Date);
-ranges = daterage.sum([range,range,...]);
-bool = daterage.equals(range1, range2);
-bool = daterage.contains(outer, inner);
-bool = daterage.overlaps(range1, range2);
-ranges = daterage.subtract(range1, diffRange);
+ranges = daterange.sum([range,range,...]);
+bool = daterange.equals(range1, range2);
+bool = daterange.contains(outer, inner);
+bool = daterange.overlaps(range1, range2);
+ranges = daterange.subtract(range1, diffRange);
 ```
 
 ## daterange Instance Methods, from daterange.create:
