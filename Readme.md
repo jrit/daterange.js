@@ -51,7 +51,15 @@ ranges = range.add(range);
 ```
 
 ## tests
-run `mocha`
+
+Run tests
+
+- `npm test`
+
+Run tests and code coverage report
+
+- `npm run coverage`
+
 
 ## License
 The MIT License (MIT)
