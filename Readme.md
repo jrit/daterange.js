@@ -16,7 +16,19 @@ Install via
 
 The bower install is just the main src file, bower.json and readme
 
-
+## Basic Examples
+##### Node Example
+```javascript
+var daterange = require('daterange');
+var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+```
+##### Browser Example
+```html
+<script src="/bower_components/daterange/src/daterange.js">
+<script>
+  var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+</script>
+```
 ## Example, add 2 ranges: 
 
 ```javascript
