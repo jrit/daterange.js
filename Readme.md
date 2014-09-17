@@ -24,7 +24,7 @@ var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 ```
 ##### Browser Example
 ```html
-<script src="/bower_components/daterange/src/daterange.js">
+<script src="/bower_components/daterange/src/daterange.js"></script>
 <script>
   var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 </script>

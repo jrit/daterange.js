@@ -18,7 +18,11 @@
 	var copyArray = function ( src )
 	{
 		var copy = [];
-		src.forEach( function ( item ) { copy.push( item ); } );
+		for (var i = 0; i < src.length; i++)
+		{
+			copy.push(src[i]);
+		}
+
 		return ( copy );
 	};
 
@@ -181,7 +185,10 @@
 			orderedRemaining = orderedRemaining.slice( 1 );
 		};
 
-		ordered.forEach( combine );
+		for (var i = 0; i < ordered.length; i++)
+		{
+			combine(ordered[i]);
+		}
 
 		return ( summed );
 	};
