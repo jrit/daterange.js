@@ -138,7 +138,7 @@
 	/**
 	 * @method sum
 	 * @param {Array} ranges
-	 * @return {Array}
+	 * @return {Array} ranges
 	 */
 	daterange.sum = function ( ranges )
 	{
@@ -191,6 +191,30 @@
 		}
 
 		return ( summed );
+	};
+
+	/**
+	 * @method inverse
+	 * @param {Array} ranges
+	 * @return {Array} ranges
+	 */
+	daterange.inverse = function ( ranges )
+	{
+		var summed = daterange.sum( ranges );
+		var inverse = [];
+
+		if (summed.length > 1)
+		{
+			for (var i = 1; i < summed.length; i++)
+			{
+				inverse.push(daterange.create(summed[i-1].end,summed[i].start));
+			}
+			return ( inverse );
+		}
+		else
+		{
+			return ( inverse );
+		}
 	};
 
 } )( typeof exports === 'undefined' ? this['daterange'] = {} : exports );
