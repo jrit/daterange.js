@@ -64,7 +64,7 @@
 			return ( [] ); //none
 		}
 
-		var parts = [exports.create( range1.start, diffRange.start ), exports.create( diffRange.end, range1.end )];
+		var parts = [daterange.create( range1.start, diffRange.start ), daterange.create( diffRange.end, range1.end )];
 		return ( parts.filter( function ( item )
 		{
 			return ( item.end.getTime() > item.start.getTime() );
@@ -124,7 +124,7 @@
 			 */
 			add: function ( range2 )
 			{
-				return ( exports.sum( [me, range2] ) );
+				return ( daterange.sum( [me, range2] ) );
 			}
 		};
 
@@ -151,7 +151,7 @@
 
 			if ( overlappingEnd )
 			{
-				var newRange = exports.create( item.start, overlappingEnd.end );
+				var newRange = daterange.create( item.start, overlappingEnd.end );
 				
 				var overlappingSum =
 					summed
