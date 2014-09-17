@@ -17,6 +17,25 @@ describe( 'daterange', function ()
 	var thirdX = new Date( 2000, 0, 3 );
 	var fourthX = new Date( 2000, 0, 4 );
 
+	var testRanges = {};
+	testRanges.first = {};
+	testRanges.second = {};
+	testRanges.third = {};
+	testRanges.fourth = {};
+	testRanges.fifth = {};
+	// these two overlap
+	testRanges.first.start = new Date( 2000, 6, 1 );
+	testRanges.first.end = new Date( 2001, 0, 1 );
+	testRanges.second.start = new Date( 2000, 9, 1 );
+	testRanges.second.end = new Date( 2001, 3, 1 );
+	testRanges.third.start = new Date( 2001, 0, 1 );
+	testRanges.third.end = new Date( 2001, 6, 1 );
+	// these do not overlap
+	testRanges.fourth.start = new Date( 2002, 6, 1 );
+	testRanges.fourth.end = new Date( 2003, 6, 1 );
+	testRanges.fifth.start = new Date( 2004, 0, 1 );
+	testRanges.fifth.end = new Date( 2004, 6, 1 );
+
 	it( 'should require start/end', function ( done )
 	{
 		assert.throws( function () { daterange.create() } );
@@ -134,7 +153,7 @@ describe( 'daterange', function ()
 		done();
 	} );
 
-	it( 'should sum a forward range', function ( done )
+	it( 'should sum forward broken ranges', function ( done )
 	{
 		var ranges = [];
 
@@ -148,13 +167,13 @@ describe( 'daterange', function ()
 		done();
 	} );
 
-	it( 'should sum a large forward range', function ( done )
+	it( 'should sum a large continuous forward range', function ( done )
 	{
 		var ranges = [];
 
 		for ( var i = 1; i < 2000; i++ )
 		{
-			ranges.push( daterange.create( new Date( 2000, 0, i ), new Date( 2000, 0, i*2 ) ) );
+			ranges.push( daterange.create( new Date( 2000, 0, i ), new Date( 2000, 0, i * 2 ) ) );
 		}
 		var sum = daterange.sum( ranges );
 
@@ -162,7 +181,7 @@ describe( 'daterange', function ()
 		done();
 	} );
 
-	it( 'should sum a backward range', function ( done )
+	it( 'should sum a backward continuous range', function ( done )
 	{
 		var ranges = [];
 
@@ -173,6 +192,72 @@ describe( 'daterange', function ()
 		var sum = daterange.sum( ranges );
 
 		assert( sum.length === 1, sum.length );
+		done();
+	} );
+
+	it( 'should inverse empty ranges', function ( done )
+	{
+		var inverse = daterange.inverse( [] );
+
+		assert( inverse.length === 0 );
+		done();
+	} );
+
+	it( 'should inverse continuous ranges', function ( done )
+	{
+		var inverse = daterange.inverse( [ daterange.create( testRanges.third.start, testRanges.third.end ), daterange.create( testRanges.first.start, testRanges.first.end ), daterange.create( testRanges.second.start, testRanges.second.end )] );
+
+		assert( inverse.length === 0 );
+		done();
+	} );
+
+	it( 'should inverse broken up ranges', function ( done )
+	{
+		var inverse = daterange.inverse( [daterange.create( testRanges.first.start, testRanges.first.end ), daterange.create( testRanges.fourth.start, testRanges.fourth.end )] );
+
+		assert( inverse.length === 1 );
+		assert( inverse[0].start.getTime() === testRanges.first.end.getTime() );
+		assert( inverse[0].end.getTime() === testRanges.fourth.start.getTime() );
+		done();
+	} );
+
+	it( 'should inverse continuous and broken up ranges', function ( done )
+	{
+		var inverse = daterange.inverse( [ daterange.create( testRanges.fifth.start, testRanges.fifth.end), daterange.create( testRanges.third.start, testRanges.third.end ), daterange.create( testRanges.first.start, testRanges.first.end ), daterange.create( testRanges.second.start, testRanges.second.end ), daterange.create( testRanges.fourth.start, testRanges.fourth.end )] );
+
+		assert( inverse.length === 2 );
+		assert( inverse[0].start.getTime() === testRanges.third.end.getTime() );
+		assert( inverse[0].end.getTime() === testRanges.fourth.start.getTime() );
+		assert( inverse[1].start.getTime() === testRanges.fourth.end.getTime() );
+		assert( inverse[1].end.getTime() === testRanges.fifth.start.getTime() );
+		done();
+	} );
+
+	it( 'should inverse a large continuous forward range', function ( done )
+	{
+		var ranges = [];
+
+		for ( var i = 1; i < 2000; i++ )
+		{
+			ranges.push( daterange.create( new Date( 2000, 0, i ), new Date( 2000, 0, i*2 ) ) );
+		}
+		var inverse = daterange.inverse( ranges );
+
+		assert( inverse.length === 0 );
+		done();
+	} );
+
+	it( 'should inverse many broken up ranges', function ( done )
+	{
+		var ranges = [];
+
+		for ( var i = 0; i < 500; i++ )
+		{
+			ranges.push( daterange.create( new Date( (2000+i), 0, 1 ), new Date( (2000+i), 0, 6) ) );
+		}
+		var inverse = daterange.inverse( ranges );
+
+		assert( inverse.length === ( i - 1 ) );
 		done();
 	} );
 
