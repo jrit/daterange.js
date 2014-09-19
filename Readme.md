@@ -24,22 +24,64 @@ var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 ```
 ##### Browser Example
 ```html
-<script src="/bower_components/daterange/src/daterange.js">
+<script src="/bower_components/daterange/src/daterange.js"></script>
 <script>
   var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 </script>
 ```
-## Example, add 2 ranges: 
+### Examples cont.
 
+##### Add 2 ranges: 
 ```javascript
 var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 var range2 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 4) );
 var result = range1.add( range2 );
 
-result.start.getTime() === range1.start.getTime(); //true
-result.end.getTime() === range2.end.getTime(); //true
+result[0].start.getTime() === range1.start.getTime(); // true
+result[0].end.getTime() === range2.end.getTime(); // true
 ```
+##### Sum 2 continuous ranges: 
+```javascript
+var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+var range2 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 4) );
+var result = daterange.sum( [range1, range2] );
 
+result[0].start.getTime() === range1.start.getTime(); // true
+result[0].end.getTime() === range2.end.getTime(); // true
+```
+##### Sum 3 ranges with break inbetween: 
+```javascript
+var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+var range2 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 5) );
+var range3 = daterange.create( new Date(2000, 0, 7), new Date(2000, 0, 8) );
+var result = daterange.sum( [range1, range2, range3] );
+
+result.length; // 2
+result[0].start.getTime() === range1.start.getTime(); // true
+result[0].end.getTime() === range2.end.getTime(); // true
+result[1].start.getTime() === range3.start.getTime(); // true
+result[1].end.getTime() === range3.end.getTime(); // true
+```
+##### Inverse ( Identify gaps in summed ranges ): 
+```javascript
+var range1 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 5) );
+var range2 = daterange.create( new Date(2000, 0, 7), new Date(2000, 0, 8) );
+var result = daterange.inverse( [range1, range2] );
+
+result[0].start.getTime() === range1.end.getTime(); // true
+result[0].end.getTime() === range2.start.getTime(); // true
+```
+```javascript
+// Illustration:
+//
+// range1      end1  start2  end2
+// v             v     v      v
+// #-------------#     #------#
+//
+//               #-----#
+//               ^     ^
+//          start  GAP  end
+```
 
 ## daterange Methods:
 

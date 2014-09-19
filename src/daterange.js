@@ -18,7 +18,11 @@
 	var copyArray = function ( src )
 	{
 		var copy = [];
-		src.forEach( function ( item ) { copy.push( item ); } );
+		for ( var i = 0; i < src.length; i++ )
+		{
+			copy.push( src[i] );
+		}
+
 		return ( copy );
 	};
 
@@ -134,7 +138,7 @@
 	/**
 	 * @method sum
 	 * @param {Array} ranges
-	 * @return {Array}
+	 * @return {Array} ranges
 	 */
 	daterange.sum = function ( ranges )
 	{
@@ -181,9 +185,33 @@
 			orderedRemaining = orderedRemaining.slice( 1 );
 		};
 
-		ordered.forEach( combine );
+		for ( var i = 0; i < ordered.length; i++ )
+		{
+			combine( ordered[i] );
+		}
 
 		return ( summed );
+	};
+
+	/**
+	 * @method inverse
+	 * @param {Array} ranges
+	 * @return {Array} ranges
+	 */
+	daterange.inverse = function ( ranges )
+	{
+		var summed = daterange.sum( ranges );
+		var inverse = [];
+
+		if ( summed.length > 1 )
+		{
+			for ( var i = 1; i < summed.length; i++ )
+			{
+				inverse.push( daterange.create( summed[i-1].end, summed[i].start ) );
+			}
+		}
+
+		return ( inverse );
 	};
 
 } )( typeof exports === 'undefined' ? this['daterange'] = {} : exports );
